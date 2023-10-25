@@ -10,6 +10,7 @@ const Menu = styled.div`
     justify-content: space-around;
     background: #f2f8fa;
 `;
+
 const MenuButton = styled.button`
     outline: none;
     border: none;
@@ -23,8 +24,8 @@ const MenuButton = styled.button`
 const MenuText = styled.div`
     width: 100%;
     font-size: 14px;
-
 `
+
 const Container = styled.div`
     display:flex;
     flex-direction:column;
