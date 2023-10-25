@@ -1,28 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolder } from '@fortawesome/free-regular-svg-icons'
+import { faFolder } from '@fortawesome/free-solid-svg-icons'
 
 const Card = styled.div`
     display: flex;
     flex-direction: column;
     align-items:center;
-    justify-content: space-around;
+    justify-content: space-betweem;
     height: 9.7em;
     width: 9.7em;
     margin: 10px;
     background: white;
-    border-radius: 10px;
-    border: 3px solid #91a7c9;
-    box-shadow: 0px 0px 12px -14px rgba(0,0,0,1);
-    color: #00779e
+    border-radius: 6px;
+    border: 2px solid #6e9ce6;
+    background: ${props => props.isPressed ? '#6e9ce6' : 'white'};
+    color: ${props => props.isPressed ? 'white' : '#6e9ce6'};
+
 `
 
-function FolderCard({ item }) {
+function FolderCard({ item, onClick }) {
+    const [isPressed, setIsPressed] = useState(false);
+
+    const handleMouseDown = () => {
+        setIsPressed(true);
+    };
+
+    const handleMouseUp = () => {
+        setIsPressed(false);
+    };
+
+    useEffect(() => {
+        // reset isPressed when the component is unmounted
+        return () => {
+            setIsPressed(false);
+        };
+    }, []);
+
     return (
-        <Card onClick={() => { console.log(item.name) }}>
-            <h3>{item.name}</h3>
-            <FontAwesomeIcon icon={faFolder} size="3x" color="#91a7c9" />
+        <Card
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}  // reset on mouse leave in case the mouse button is released outside the Card
+            onClick={onClick}
+            isPressed={isPressed}
+        >
+            <h2>{item.name}</h2>
+            <FontAwesomeIcon icon={faFolder} size="3x" color={isPressed ? "white" : "#6e9ce6"} />
         </Card>)
 }
 
