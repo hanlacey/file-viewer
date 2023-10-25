@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Card = styled.div`
     display: flex;
@@ -12,8 +12,8 @@ const Card = styled.div`
     margin: 10px;
     background: #f0f2f2;
     box-shadow: 0px 0px 12px -14px rgba(0,0,0,1);
-    color: #7489a6
-`
+    color: #7489a6;
+    `
 const Thumbnail = styled.div`
     display:flex;
     align-items: center;

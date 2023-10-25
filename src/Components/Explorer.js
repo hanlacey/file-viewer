@@ -54,7 +54,7 @@ function Explorer() {
     const [sortCriteria, setSortCriteria] = useState('recent');
     const [files, setFiles] = useState(filteredFiles);
     const [folders, setFolders] = useState(filteredFolders);
-    const [atTopLevel, setAtTopLevel] = useState(true)
+    const [atTopLevel, setAtTopLevel] = useState(true);
 
     useEffect(() => {
         sortFiles();
@@ -98,13 +98,13 @@ function Explorer() {
         setAtTopLevel(false);
         const files = folders[index].files;
         setFiles(files);
-    }
+    };
 
     const goToTopLevel = () => {
         setFiles(filteredFiles);
         setFolders(filteredFolders);
         setAtTopLevel(true);
-    }
+    };
 
     return (
         <Container>
