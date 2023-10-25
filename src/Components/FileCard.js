@@ -18,8 +18,8 @@ const Card = styled.div`
 
 function FileCard({ item }) {
     return (
-        <Card>
-            <h3>{item.name}</h3>
+        <Card >
+            <h3 data-testid="file-card-name" >{item.name}</h3>
             <div>{item.type}</div>
             <div>Added: {item.added}</div>
 
