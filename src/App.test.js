@@ -19,10 +19,14 @@ test('button click changes sorting criteria and updates button styling', () => {
   const recentButton = screen.getByText('Most Recent');
   const nameButton = screen.getByText('Name');
 
-  fireEvent.click(recentButton);
-
+  //sorted by recent by default
   expect(recentButton).toHaveStyle('background-color: #91a7c9');
   expect(nameButton).not.toHaveStyle('background-color: #91a7c9');
+
+  fireEvent.click(nameButton);
+
+  expect(nameButton).toHaveStyle('background-color: #91a7c9');
+  expect(recentButton).not.toHaveStyle('background-color: #91a7c9');
 });
 
 test('files are rendered in the correct order when sorted by name', () => {
