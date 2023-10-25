@@ -3,11 +3,20 @@ import styled from "styled-components";
 import filesJson from '../files.json'
 import FileCard from "./FileCard";
 import FolderCard from "./FolderCard";
-
+import ReturnCard from "./ReturnCard";
+const Container = styled.div`
+    display:flex;
+    flex-direction: row;
+    background: #f0f2f2;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+`;
 const Menu = styled.div`
     display: flex;
+    width: 10%;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     background: #f2f8fa;
 `;
 
@@ -23,17 +32,10 @@ const MenuButton = styled.button`
 
 const MenuText = styled.div`
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
+    padding: 10px;
+    font-weight: 600;
 `
-
-const Container = styled.div`
-    display:flex;
-    flex-direction:column;
-    background: #f0f2f2;
-    width: 100vw;
-    height: 100vh;
-    background: white;
-`;
 
 const FileContainer = styled.div`
     display:flex;
@@ -48,9 +50,11 @@ const FileContainer = styled.div`
 function Explorer() {
     const filteredFiles = filesJson.filter(item => item.type !== 'folder');
     const filteredFolders = filesJson.filter(item => item.type === 'folder');
+
     const [sortCriteria, setSortCriteria] = useState('recent');
-    const [files, setFiles] = useState(filteredFiles)
-    const [folders, setFolders] = useState(filteredFolders)
+    const [files, setFiles] = useState(filteredFiles);
+    const [folders, setFolders] = useState(filteredFolders);
+    const [atTopLevel, setAtTopLevel] = useState(true)
 
     useEffect(() => {
         sortFiles();
@@ -67,7 +71,7 @@ function Explorer() {
     const getFolders = () => {
         return (
             folders.map((item, index) => {
-                return <FolderCard item={item} key={index} />
+                return <FolderCard item={item} key={index} onClick={() => { openFolder(index) }} />
             })
         )
     }
@@ -89,6 +93,19 @@ function Explorer() {
         setFiles(sortedFiles);
     };
 
+    const openFolder = (index) => {
+        setFolders([]);
+        setAtTopLevel(false);
+        const files = folders[index].files;
+        setFiles(files);
+    }
+
+    const goToTopLevel = () => {
+        setFiles(filteredFiles);
+        setFolders(filteredFolders);
+        setAtTopLevel(true);
+    }
+
     return (
         <Container>
             <Menu>
@@ -98,6 +115,7 @@ function Explorer() {
                 <MenuButton selected={sortCriteria === 'type'} onClick={() => { setSortCriteria('type') }}>Type</MenuButton>
             </Menu>
             <FileContainer>
+                {!atTopLevel && <ReturnCard onClick={goToTopLevel} />}
                 {getFolders()}
                 {getFiles()}
             </FileContainer>
